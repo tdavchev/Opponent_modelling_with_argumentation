@@ -261,27 +261,37 @@ public class Playground {
 		 return tuple;
 	}
 	
-	private Argument mStar(ArrayList<Argument> dialogue, int depth, Agent agent, ArrayList<Argument> legalMoves){
-		int playUtil = 0; // player on turn's utility
-		int maxUtil = -999999;
+	/**
+	 * no legalmoves update...
+	 * @param dialogue
+	 * @param depth
+	 * @param agent
+	 * @param legalMoves
+	 * @return
+	 */
+	private Argument mStar(ArrayList<Argument> dialogue, int depth, Agent agent, Agent opponent, ArrayList<Argument> legalMoves){
+		double playUtil = 0; // player on turn's utility
+		double maxUtil = -999999;
 		Argument maxMove = null; // move with maximised utility
 		ArrayList<Argument> tempDialogue = new ArrayList<Argument>(); //secures the dialogue + M and dialogue +M +M' from paper
-		if(depth == 0){
-			playUtil = collectUtility(dialogue, agent);
+		if(depth == 0 || legalMoves.isEmpty()){
+			playUtil = collectUtility(dialogue, agent, opponent);
 		}
 		else{
 			Host.populateArrayList(tempDialogue, dialogue);
 			for(Argument move: legalMoves){
 				if(depth==1){
 					tempDialogue.add(move);
-					playUtil = collectUtility(tempDialogue, agent);
+					playUtil = collectUtility(tempDialogue, agent, opponent);
 				}
 				else{
 					tempDialogue.add(move);
 					for(Agent agentOpp: agent.opp.keySet()){
-						Argument oppMove = mStar(tempDialogue, depth-1, agentOpp, legalMoves);
+						ArrayList<Argument> legalmoves = findLegalmoves(agentOpp, move, tempDialogue);
+						Argument oppMove = mStar(tempDialogue, depth-1, agentOpp, agent, legalmoves);
 						tempDialogue.add(oppMove);
-						mStar(tempDialogue, depth-2, agent, legalMoves);
+						legalmoves = findLegalmoves(agent, oppMove, tempDialogue);
+						mStar(tempDialogue, depth-2, agent, agentOpp, legalMoves);
 					}					
 				}
 				if(playUtil>maxUtil){
