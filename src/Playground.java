@@ -21,6 +21,7 @@ public class Playground {
 		}
 		for(int i =5; i<as.argumentList.size(); ++i){
 			argumentList.add(as.argumentList.get(i));
+//			System.err.println(as.argumentList.get(i).name);
 		}
 		KnowledgeBase kb = new KnowledgeBase(argumentList);
 		pro = new Agent(kb, "proponent");

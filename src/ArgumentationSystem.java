@@ -29,15 +29,56 @@ public class ArgumentationSystem {
 		Argument f = new Argument("f");
 		Argument g = new Argument("g");
 		Argument h = new Argument("h");
+		Argument i = new Argument("i");
+		Argument j = new Argument("j");
+		Argument k = new Argument("k");
+		Argument l = new Argument("l");
+		Argument m = new Argument("m");
+		Argument n = new Argument("n");
+		Argument o = new Argument("o");
+		Argument p = new Argument("p");
+		Argument q = new Argument("q");
+		Argument r = new Argument("r");
+		Argument s = new Argument("s");
+		Argument t = new Argument("t");
+		Argument u = new Argument("u");
+		Argument v = new Argument("v");
+		Argument w = new Argument("w");
+		Argument x = new Argument("x");
+		Argument y = new Argument("y");
+		Argument z = new Argument("z");
+		Argument ab = new Argument("ab");
 		argumentList.add(a); argumentList.add(b);
 		argumentList.add(c); argumentList.add(d);
 		argumentList.add(e); argumentList.add(f);
 		argumentList.add(g); argumentList.add(h);
-		b.attacks(a); 
-		c.attacks(b);
-		d.attacks(b); e.attacks(d);
-		c.attacks(d); d.attacks(c);
-		f.attacks(b); g.attacks(f); h.attacks(g);
+		argumentList.add(i); argumentList.add(j);
+		argumentList.add(k); argumentList.add(l);
+		argumentList.add(m); argumentList.add(n);
+		argumentList.add(o); argumentList.add(p);
+		argumentList.add(q); argumentList.add(r);
+		argumentList.add(s); argumentList.add(t);
+		argumentList.add(u); argumentList.add(v);
+		argumentList.add(w); argumentList.add(x);
+		argumentList.add(y); argumentList.add(z);
+		argumentList.add(ab);
+		// tree 1
+//		b.attacks(a); 
+//		c.attacks(b);
+//		d.attacks(b); e.attacks(d);
+//		c.attacks(d); d.attacks(c);
+//		f.attacks(b); g.attacks(f); h.attacks(g);
+		// end of tree 1
+		//tree 2
+		b.attacks(a); c.attacks(b); d.attacks(c); e.attacks(c);
+		f.attacks(d); g.attacks(d); h.attacks(d);
+		i.attacks(f);
+		j.attacks(a); k.attacks(j); l.attacks(j);
+		m.attacks(a); n.attacks(m); o.attacks(m); p.attacks(o); q.attacks(o);
+//		//tree 3 cont'd 2
+		r.attacks(q); s.attacks(q); t.attacks(r); u.attacks(r); v.attacks(r); w.attacks(t); x.attacks(t); y.attacks(x);
+		z.attacks(u); ab.attacks(u);
+		System.out.println("Argumentation System size: " + argumentList.size());
 	}
 	
 	private void collectUnattacked(){
