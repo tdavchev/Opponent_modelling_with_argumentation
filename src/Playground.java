@@ -31,7 +31,7 @@ public class Playground {
 			argumentList2.add(as.argumentList.get(i));
 		}
 		KnowledgeBase kbOpp1 = new KnowledgeBase(argumentList2);
-		prosModelA = new Agent(kbOpp1, "modelA");
+		prosModelA = new Agent(kb, "modelA");
 //		argumentList.clear();
 		ArrayList<Argument> argumentList3 = new ArrayList<Argument>();
 		for(int i =4; i<as.argumentList.size(); ++i){
@@ -40,7 +40,7 @@ public class Playground {
 		argumentList3.add(as.argumentList.get(0)); argumentList3.add(as.argumentList.get(1));
 		KnowledgeBase kbOpp2 = new KnowledgeBase(argumentList3);
 		prosModelB = new Agent(kbOpp2, "modelB");
-		pro.opponentModel(0.9, prosModelA); pro.opponentModel(0.1, prosModelB);
+		pro.opponentModel(1.0, prosModelA);// pro.opponentModel(0.0, prosModelB);
 		ArrayList<Argument> argumentList4 = new ArrayList<Argument>();
 		for(int i =0; i<as.argumentList.size(); ++i){
 			argumentList4.add(as.argumentList.get(i));
@@ -67,9 +67,10 @@ public class Playground {
 				myself = opp;
 				legalmoves = findLegalmoves(opp, move, pi);
 				if(legalmoves != null){
-	//				move = mStar(pi, 3, opp, legalmoves);
 					Map<Argument, Double> moveWithUtil = new HashMap<Argument, Double>();
-					moveWithUtil = minimax(pi, 4, opp, null, legalmoves, -99999, 99999);
+					moveWithUtil = minimax(pi, 9, opp, null, legalmoves, -99999, 99999);
+//					moveWithUtil = uMStar(pi, 9, opp, null, legalmoves);
+//					move = mStar(pi, 9, opp, null, legalmoves);
 					if(!moveWithUtil.isEmpty()){
 						for(Argument arg:moveWithUtil.keySet()){
 							move = arg;
@@ -87,17 +88,12 @@ public class Playground {
 			}
 			else{// proponent's turn
 				myself = pro;
-				for(int i = 0; i< pi.size(); ++i){
-					System.err.print(pi.get(i).name + ", ");
-				}
-				Host.sleep(100);
-				System.out.println();
-				System.err.println("move ----> " + move.name);
 				legalmoves = findLegalmoves(pro, move, pi);
-//				move = mStar(pi, 3, pro, legalmoves);
 				Map<Argument, Double> moveWithUtil = new HashMap<Argument, Double>();
 				if(legalmoves != null){
-					moveWithUtil = minimax(pi, 4, pro, null, legalmoves, -99999, 99999);
+					moveWithUtil = minimax(pi, 9, pro, null, legalmoves, -99999, 99999);
+//					moveWithUtil = uMStar(pi, 9, pro, null, legalmoves);
+//					move = mStar(pi, 9, pro, null, legalmoves);
 					for(Argument arg:moveWithUtil.keySet()){
 						move = arg;
 						break;
@@ -127,16 +123,6 @@ public class Playground {
 	 * @return
 	 */
 	private ArrayList<Argument> findLegalmoves(Agent agent, Argument move, ArrayList<Argument> listOfAlreadySaidArguments){
-//		System.out.println("*************************************************");
-//		System.out.println("za agent: " + agent.name +" attack relation.a e: ");
-//		for(Argument attackee:agent.attackRelation.keySet()){
-//			System.out.print("attackee: " + attackee.name + " with attackers -> ");
-//			for(Argument attacker: agent.attackRelation.get(attackee)){
-//				System.out.print(attacker.name + ", ");
-//			}
-//			Host.sleep(100);
-//			System.out.println();
-//		}
 		// drives off the model with insufficient arguments to win
 		// if I want to stick to the higher chance of invalidness of a model and 
 		// thus not to drive the model with insufficientness take the listOfAlreadySaidArguments and swap with pi
