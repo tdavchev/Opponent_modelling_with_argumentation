@@ -28,20 +28,20 @@ public class Playground {
 		pro = new Agent(kb, "proponent");
 		ArrayList<Argument> argumentList2 = new ArrayList<Argument>();
 //		argumentList.clear();
-		for(int i =0; i<5; ++i){
+		for(int i =0; i<20; ++i){
 			argumentList2.add(as.argumentList.get(i));
 		}
 		KnowledgeBase kbOpp1 = new KnowledgeBase(argumentList2);
-		prosModelA = new Agent(kb, "modelA");
+		prosModelA = new Agent(kbOpp1, "modelA");
 //		argumentList.clear();
 		ArrayList<Argument> argumentList3 = new ArrayList<Argument>();
-		for(int i =4; i<as.argumentList.size(); ++i){
+		for(int i =3; i<as.argumentList.size(); ++i){
 			argumentList3.add(as.argumentList.get(i));
 		}
 		argumentList3.add(as.argumentList.get(0)); argumentList3.add(as.argumentList.get(1));
 		KnowledgeBase kbOpp2 = new KnowledgeBase(argumentList3);
 		prosModelB = new Agent(kbOpp2, "modelB");
-		pro.opponentModel(1.0, prosModelA);// pro.opponentModel(0.0, prosModelB);
+		pro.opponentModel(0.3, prosModelA); pro.opponentModel(0.7, prosModelB);
 		ArrayList<Argument> argumentList4 = new ArrayList<Argument>();
 		for(int i =0; i<as.argumentList.size(); ++i){
 			argumentList4.add(as.argumentList.get(i));
