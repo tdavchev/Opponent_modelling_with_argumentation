@@ -192,42 +192,53 @@ public class Playground {
 	}
 	
 	
-	private Map<Argument, Double> uMStar(ArrayList<Argument> dialogue, int depth, Agent agent, ArrayList<Argument> legalMoves){
+	private Map<Argument, Double> uMStar(ArrayList<Argument> dialogue, int depth, Agent agent, Agent opponent, ArrayList<Argument> legalMoves){
 		double playUtil = 0; // player on turn's utility
 		double maxUtil = -9999;
 		Map<Argument, Double> maxMoveMaxUtil = new HashMap<Argument, Double>(); 
+		Map<Argument, Double> proMoveProUtil = new HashMap<Argument, Double>();
+//		for(int i =0; i< legalMoves.size();++i){System.out.println("on entering um* -> legalmove: " + legalMoves.get(i).name);}Host.sleep(100);
 		Argument maxMove = null; // move with maximised utility
 		ArrayList<Argument> tempDialogue = new ArrayList<Argument>(); //secures the dialogue + M and dialogue +M +M' from paper
-		if(depth == 0){
-			playUtil = collectUtility(dialogue, agent);
+		if(depth == 0 || legalMoves.isEmpty()){
+			playUtil = collectUtility(dialogue, agent, opponent);
 		}
 		else{
 			Host.populateArrayList(tempDialogue, dialogue);
 			for(Argument move: legalMoves){
+//				System.out.println("for move: " + move.name);
 				playUtil=0;
 				tempDialogue.add(move);
 				if(depth==1){
-					playUtil = collectUtility(tempDialogue, agent);
+					playUtil = collectUtility(tempDialogue, agent, opponent);
 				}
 				else{
 					for(Agent agentOpp: agent.opp.keySet()){
 						ArrayList<Argument> legalmoves = findLegalmoves(agentOpp, move, tempDialogue);
+//						for(int i =0; i< legalmoves.size();++i){System.out.println("before opponent is called -> legalmove: " + legalmoves.get(i).name);}Host.sleep(100);
 						Map<Argument, Double> oppMoveOppUtil = new HashMap<Argument, Double>();
 						Argument oppMove = null;
-						oppMoveOppUtil = uMStar(tempDialogue, depth-1, agentOpp, legalmoves);
-						int oMoves = 0;
+						oppMoveOppUtil = uMStar(tempDialogue, depth-1, agentOpp, agent, legalmoves);
 						for(Argument key: oppMoveOppUtil.keySet()){
 							oMoves++;
 							oppMove = key;
-						}
-						tempDialogue.add(oppMove);
-						legalmoves=findLegalmoves(agent, oppMove, tempDialogue);
-						Map<Argument, Double> proMoveProUtil = new HashMap<Argument, Double>();
-						proMoveProUtil = uMStar(tempDialogue, depth-2, agent, legalmoves);
-						for(Argument key: proMoveProUtil.keySet()){
-							playUtil += proMoveProUtil.get(key)*agent.opp.get(agentOpp)*(1/oMoves);
+							tempDialogue.add(oppMove);
+							legalmoves=findLegalmoves(agent, oppMove, tempDialogue);
+//							for(int i =0; i< legalmoves.size();++i){System.out.println("before proponent is called -> legalmove: " + legalmoves.get(i).name);}Host.sleep(100);
+							proMoveProUtil = uMStar(tempDialogue, depth-2, agent, agentOpp, legalmoves);
 						}
 					}					
+				}
+				for(Argument keyMove: proMoveProUtil.keySet()){
+					playUtil = proMoveProUtil.get(keyMove);
+					if(playUtil > maxUtil){
+						maxMoveMaxUtil = clearList(maxMoveMaxUtil);
+					}
+					if(playUtil >= maxUtil){
+						maxUtil = playUtil;
+						maxMove = move;
+						maxMoveMaxUtil.put(maxMove, maxUtil);
+					}
 				}
 				if(playUtil > maxUtil){
 					maxMoveMaxUtil = clearList(maxMoveMaxUtil);
