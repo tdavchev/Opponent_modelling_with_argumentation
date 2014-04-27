@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -9,7 +10,10 @@ public class Host {
 	public static void main(String[] Args){
 //		ArgumentationSystem as = new ArgumentationSystem();
 		for(int i = 0; i<1; i++){
+			long secs = (new Date().getTime());
 			Playground playground = new Playground();
+			long newsecs = (new Date().getTime());
+			System.out.println((newsecs-secs));
 		}
 	}
 	
