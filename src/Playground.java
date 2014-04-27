@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -312,28 +313,36 @@ public class Playground {
 	private double evaluationFunction(ArrayList<Argument> dialogue, Agent agent, Agent opponent){
 		double v = 0;
 		double score = 0;
+		double bla;
+		int counter=1;
+		double opponentMoves=0.0; 
 		if((pi.size()&1)!=0)
 			v = -1;
 		else
 			v = 1;
 		for(Argument argument: dialogue){
+			if((counter&1) == 0){
+				opponentMoves = opponentMoves + 1.0;
+			}
 			if(as.labelling.get("IN").contains(argument))
 				score += v;
 			else if(as.labelling.get("OUT").contains(argument))
 				score -= -v;
 			else
 				score += 0;
+			counter++;
 		}
-		if(agent != myself) 
-			score = score*opponent.opp.get(agent);
+		if(agent != myself){
+			score += score*opponent.opp.get(agent)*(1.0/opponentMoves);
+		}
 		else if(opponent != null){
-			score = score*agent.opp.get(opponent);
+			score += score*agent.opp.get(opponent)*(1.0/opponentMoves);
 		}
 		return score;
 	}
 	
 	/**
-	 * Collects utility see Oren+Thimm
+	 * Collects utility see Oren+Thimm ask if their is correct
 	 * 
 	 * @param dialogue
 	 * @return utility
@@ -358,8 +367,9 @@ public class Playground {
 				util += 0;
 			counter++;
 		}
-		if(agent.name.equals("proponent") && opponent != null){
-			util += util*agent.opp.get(opponent)*(1/opponentMoves);
+		if(agent == myself 
+				&& opponent != null){
+			util += util*agent.opp.get(opponent)*(1.0/opponentMoves);
 		}
 		return util;
 	}
