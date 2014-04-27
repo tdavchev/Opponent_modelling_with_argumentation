@@ -80,7 +80,7 @@ public class Playground {
 							winner = opp;
 						}
 					}
-					else{
+					else if(moveWithUtil.isEmpty() && move == null){
 						winner = pro;
 						loser = opp;
 					}
@@ -137,33 +137,8 @@ public class Playground {
 		return legalmoves;
 	}
 	
-//	private ArrayList<Argument> legalmoves(Agent agent, Argument move, ArrayList<Argument> listOfAlreadySaidArguments){
-////		System.out.println("*************************************************");
-////		System.out.println("za agent: " + agent.name +" attack relation.a e: ");
-////		for(Argument attackee:agent.attackRelation.keySet()){
-////			System.out.print("attackee: " + attackee.name + " with attackers -> ");
-////			for(Argument attacker: agent.attackRelation.get(attackee)){
-////				System.out.print(attacker.name + ", ");
-////			}
-////			Host.sleep(100);
-////			System.out.println();
-////		}
-//		// drives off the model with insufficient arguments to win
-//		// if I want to stick to the higher chance of invalidness of a model and 
-//		// thus not to drive the model with insufficientness take the listOfAlreadySaidArguments and swap with pi
-//		ArrayList<Argument> legalmoves = new ArrayList<>();
-//		if(agent.attackRelation.get(move) != null){
-//		for(Argument arg: agent.attackRelation.get(move)){
-//			if(!pi.contains(arg) && !legalmoves.contains(arg)){
-//				legalmoves.add(arg);
-//			}
-//		}
-//		}
-//		return legalmoves;
-//	}
-	
-	private Map<Argument, Double> minimax(ArrayList<Argument> dialogue, int depth, Agent player, Agent opponent,
-			ArrayList<Argument> legalMoves, double alpha, double beta){
+	private Map<Argument, Double> minimax(ArrayList<Argument> dialogue, int depth, Agent player, 
+			Agent opponent, ArrayList<Argument> legalMoves, double alpha, double beta){
 		double score = -9999;
 		Argument bestMove = null;
 		Map<Argument, Double> maxMoveMaxUtil = new HashMap<Argument, Double>();
@@ -330,7 +305,7 @@ public class Playground {
 		}
 		if(agent != myself) 
 			score = score*opponent.opp.get(agent);
-		else{
+		else if(opponent != null){
 			score = score*agent.opp.get(opponent);
 		}
 		return score;
