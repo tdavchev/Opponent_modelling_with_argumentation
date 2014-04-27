@@ -48,6 +48,27 @@ public class ArgumentationSystem {
 		Argument y = new Argument("y");
 		Argument z = new Argument("z");
 		Argument ab = new Argument("ab");
+		Argument ac = new Argument("ac");
+		Argument ad = new Argument("ad");
+		Argument ae = new Argument("ae");
+		Argument af = new Argument("af");
+		Argument ag = new Argument("ag");
+		Argument ah = new Argument("ah");
+		Argument ai = new Argument("ai");
+		Argument aj = new Argument("aj");
+		Argument ak = new Argument("ak");
+		Argument al = new Argument("al");
+		Argument am = new Argument("am");
+		Argument an = new Argument("an");
+		Argument ao = new Argument("ao");
+		Argument ap = new Argument("ap");
+		Argument aq = new Argument("aq");
+		Argument ar = new Argument("ar");
+		Argument as = new Argument("as");
+		Argument at = new Argument("at");
+		Argument au = new Argument("au");
+		Argument av = new Argument("av");
+		Argument aw = new Argument("aw");
 		argumentList.add(a); argumentList.add(b);
 		argumentList.add(c); argumentList.add(d);
 		argumentList.add(e); argumentList.add(f);
@@ -61,7 +82,17 @@ public class ArgumentationSystem {
 		argumentList.add(u); argumentList.add(v);
 		argumentList.add(w); argumentList.add(x);
 		argumentList.add(y); argumentList.add(z);
-		argumentList.add(ab);
+		argumentList.add(ab); argumentList.add(ac);
+		argumentList.add(ad); argumentList.add(ag);
+		argumentList.add(ah); argumentList.add(ai);
+		argumentList.add(aj); argumentList.add(ak);
+		argumentList.add(al); argumentList.add(am);
+		argumentList.add(an); argumentList.add(ao);
+		argumentList.add(ap); argumentList.add(aq);
+		argumentList.add(ar); argumentList.add(as);
+		argumentList.add(at); argumentList.add(au);
+		argumentList.add(av); argumentList.add(aw);
+		argumentList.add(af);
 		// tree 1
 //		b.attacks(a); 
 //		c.attacks(b);
@@ -74,10 +105,24 @@ public class ArgumentationSystem {
 		f.attacks(d); g.attacks(d); h.attacks(d);
 		i.attacks(f);
 		j.attacks(a); k.attacks(j); l.attacks(j);
-		m.attacks(a); n.attacks(m); o.attacks(m); p.attacks(o); q.attacks(o);
+		m.attacks(a); n.attacks(m); 
+		o.attacks(m); p.attacks(o); q.attacks(o);
 //		//tree 3 cont'd 2
 		r.attacks(q); s.attacks(q); t.attacks(r); u.attacks(r); v.attacks(r); w.attacks(t); x.attacks(t); y.attacks(x);
-		z.attacks(u); ab.attacks(u);
+		z.attacks(u); ab.attacks(u); af.attacks(e);
+		//tree 4
+//		ac.attacks(k); ad.attacks(l); ae.attacks(ad); af.attacks(e);
+		//tree 5
+//		ac.attacks(k);ad.attacks(l); ag.attacks(l); af.attacks(e);
+//		ah.attacks(ac); ai.attacks(ad); aj.attacks(ad);
+//		ak.attacks(aj); al.attacks(aj);
+//		am.attacks(aj); an.attacks(aj); ao.attacks(am); ap.attacks(am); aq.attacks(am);
+//		ar.attacks(ao); as.attacks(ao); at.attacks(ap); au.attacks(ap); av.attacks(aq); aw.attacks(as);
+		//tree 6
+		ac.attacks(p); ad.attacks(q); ag.attacks(s); ah.attacks(u); ai.attacks(w); aj.attacks(ab); ak.attacks(z);
+		al.attacks(x); am.attacks(y); an.attacks(al); ao.attacks(am); am.attacks(ao); ap.attacks(ao); ap.attacks(ag); ap.attacks(an);
+		aq.attacks(t); ar.attacks(ao); ar.attacks(aq); as.attacks(ar); as.attacks(at); at.attacks(ap); au.attacks(am); am.attacks(au);
+		av.attacks(y); aw.attacks(q); q.attacks(aw); q.attacks(av);
 		System.out.println("Argumentation System size: " + argumentList.size());
 	}
 	
