@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 
 public class ArgumentationSystem {
@@ -9,6 +10,8 @@ public class ArgumentationSystem {
 	public ArrayList<Argument> nonAttacked = new ArrayList<Argument>();
 	ArrayList<Argument> argumentList= new ArrayList<Argument>();
 	KnowledgeBase kb = new KnowledgeBase(argumentList);
+	Scanner scannera = new Scanner(System.in);
+	private String letter;
 	public ArgumentationSystem(){
 		defineArguments(kb);
 		attackRelation = Host.populateAttacks(kb.arguments);
