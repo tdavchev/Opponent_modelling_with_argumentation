@@ -338,20 +338,28 @@ public class Playground {
 	 * @param dialogue
 	 * @return utility
 	 */
-	private int collectUtility(ArrayList<Argument> dialogue, Agent agent){
+	private double collectUtility(ArrayList<Argument> dialogue, Agent agent, Agent opponent){
 		int v = 0;
-		int util = 0;
+		double util = 0;
+		int opponentMoves=0, counter=1;
 		if((pi.size()&1)!=0)
 			v = -1;
 		else
 			v = 1;
 		for(Argument argument: dialogue){
+			if((counter&1) == 0){
+				opponentMoves++;
+			}
 			if(as.labelling.get("IN").contains(argument))
 				util += v;
 			else if(as.labelling.get("OUT").contains(argument))
 				util -= -v;
 			else
 				util += 0;
+			counter++;
+		}
+		if(agent.name.equals("proponent") && opponent != null){
+			util += util*agent.opp.get(opponent)*(1/opponentMoves);
 		}
 		return util;
 	}
