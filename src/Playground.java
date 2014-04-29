@@ -17,12 +17,12 @@ public class Playground {
 	public Playground(){
 		ArrayList<Argument> argumentList = new ArrayList<Argument>();
 		String winner;
-		for(int i =0; i<5; ++i){
+		argumentList.add(as.argumentList.get(0));
+		for(int i =2; i<5; ++i){
 			argumentList.add(as.argumentList.get(i));
 		}
 		for(int i =5; i<as.argumentList.size(); ++i){
 			argumentList.add(as.argumentList.get(i));
-//			System.err.println(as.argumentList.get(i).name);
 		}
 		KnowledgeBase kb = new KnowledgeBase(argumentList);
 		pro = new Agent(kb, "proponent");
@@ -36,12 +36,14 @@ public class Playground {
 //		argumentList.clear();
 		ArrayList<Argument> argumentList3 = new ArrayList<Argument>();
 		for(int i =3; i<as.argumentList.size(); ++i){
+//			System.out.println("weqweq " + as.argumentList.get(i).name);
 			argumentList3.add(as.argumentList.get(i));
 		}
-		argumentList3.add(as.argumentList.get(0)); argumentList3.add(as.argumentList.get(1));
+//		System.out.println(as.argumentList.get(0).name);
+		argumentList3.add(as.argumentList.get(0));
 		KnowledgeBase kbOpp2 = new KnowledgeBase(argumentList3);
 		prosModelB = new Agent(kbOpp2, "modelB");
-		pro.opponentModel(0.3, prosModelA); pro.opponentModel(0.7, prosModelB);
+		pro.opponentModel(0.5, prosModelA); pro.opponentModel(0.5, prosModelB);
 		ArrayList<Argument> argumentList4 = new ArrayList<Argument>();
 		for(int i =0; i<as.argumentList.size(); ++i){
 			argumentList4.add(as.argumentList.get(i));
