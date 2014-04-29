@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 
 public class Playground {
 	private ArrayList<Argument> pi = new ArrayList<Argument>();
-	Agent pro, opp, prosModelA, prosModelB, oppsModelA, myself;
+	Agent pro, opp, prosModelA, prosModelB, oppsModelA, myself, undec;
 	int oMoves = 0;
 	private Map<String, ArrayList<Argument>> personalDecisions = new HashMap<String, ArrayList<Argument>>();
 	ArgumentationSystem as = new ArgumentationSystem();
@@ -25,20 +25,17 @@ public class Playground {
 		}
 		KnowledgeBase kb = new KnowledgeBase(argumentList);
 		pro = new Agent(kb, "proponent");
+		undec = new Agent(kb, "undecided");
 		ArrayList<Argument> argumentList2 = new ArrayList<Argument>();
-//		argumentList.clear();
 		for(int i =0; i<20; ++i){
 			argumentList2.add(as.argumentList.get(i));
 		}
 		KnowledgeBase kbOpp1 = new KnowledgeBase(argumentList2);
 		prosModelA = new Agent(kbOpp1, "modelA");
-//		argumentList.clear();
 		ArrayList<Argument> argumentList3 = new ArrayList<Argument>();
 		for(int i =3; i<as.argumentList.size(); ++i){
-//			System.out.println("weqweq " + as.argumentList.get(i).name);
 			argumentList3.add(as.argumentList.get(i));
 		}
-//		System.out.println(as.argumentList.get(0).name);
 		argumentList3.add(as.argumentList.get(0));
 		KnowledgeBase kbOpp2 = new KnowledgeBase(argumentList3);
 		prosModelB = new Agent(kbOpp2, "modelB");
@@ -100,19 +97,23 @@ public class Playground {
 //					moveWithUtil = uMStar(pi, 35, pro, null, legalmoves);
 //					moveWithUtil = mStar(pi, 35, pro, null, legalmoves);
 					for(Argument arg:moveWithUtil.keySet()){
-//						System.out.println(arg.name);
-						move = arg;
+						move = arg; // if more than one appropriate argument pick any
 						break;
 					}
-					if((move != pi.get(pi.size()-1))&&move!=null){
+					if((move != pi.get(pi.size()-1))
+							&&move!=null){
 						loser = winner;
 						winner = pro;
 					}
 				}
 			}
 			if(move != null){
-			loser.update(move);
-			System.out.println(winner.name + " says -> " + move.name);Host.sleep(100);}
+				loser.update(move);
+				System.out.println(winner.name + " says -> " + move.name);
+				Host.sleep(100);
+			}
+			if(pi.contains(move))
+				winner = undec;
 		}while(loser.attackRelation.get(move)!=null  
 				&& (!pi.contains(move)));
 		return winner.name;
@@ -121,24 +122,26 @@ public class Playground {
 	/**
 	 * All arguments attacking the previous move are legal
 	 * apart from the ones already played.
-	 * It is currently not tracing back should there be no legalmoves
-	 * to advance given the current one.
+	 * This function supports indecisiveness.
 	 * 
 	 * @param agent
 	 * @param move
 	 * @return
 	 */
 	private ArrayList<Argument> findLegalmoves(Agent agent, Argument move, ArrayList<Argument> listOfAlreadySaidArguments){
-		// drives off the model with insufficient arguments to win
-		// if I want to stick to the higher chance of invalidness of a model and 
-		// thus not to drive the model with insufficientness take the listOfAlreadySaidArguments and swap with pi
 		ArrayList<Argument> legalmoves = new ArrayList<>();
 		if(agent.attackRelation.get(move) != null){
-		for(Argument arg: agent.attackRelation.get(move)){
-			if(!listOfAlreadySaidArguments.contains(arg) && !legalmoves.contains(arg)){
-				legalmoves.add(arg);
+			for(Argument arg: agent.attackRelation.get(move)){
+				if(!listOfAlreadySaidArguments.contains(arg) 
+						&& !legalmoves.contains(arg)){
+					legalmoves.add(arg);
+				}
+				else if(listOfAlreadySaidArguments.size()>1){
+					if(listOfAlreadySaidArguments.get(listOfAlreadySaidArguments.size()-2).equals(arg)){ // support the option for indecisiveness
+						legalmoves.add(arg);
+					}
+				}
 			}
-		}
 		}
 		return legalmoves;
 	}
@@ -352,12 +355,20 @@ public class Playground {
 			if((counter&1) == 0){
 				opponentMoves = opponentMoves + 1.0;
 			}
-			if(as.labelling.get("IN").contains(argument))
-				score += v;
-			else if(as.labelling.get("OUT").contains(argument))
-				score -= -v;
-			else
-				score += 0;
+			if(dialogue.size()>1 
+					&& counter > 1){
+				if(dialogue.get(counter-2).equals(argument)){
+					score+=0.5;
+				}
+			}
+			else{
+				if(as.labelling.get("IN").contains(argument))
+					score += v;
+				else if(as.labelling.get("OUT").contains(argument))
+					score -= -v;
+				else
+					score += 0;
+			}
 			counter++;
 		}
 		if(agent != myself){
