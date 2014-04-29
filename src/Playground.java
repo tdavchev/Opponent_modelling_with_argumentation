@@ -292,6 +292,7 @@ public class Playground {
 			double maxUtil = -999999;
 			Host.populateArrayList(tempDialogue, dialogue);
 			for(Argument move: legalMoves){
+				legalMoves = findLegalmoves(agent, move, tempDialogue);
 				if(depth==1){
 					tempDialogue.add(move);
 					playUtil = evaluationFunction(tempDialogue, agent, opponent);
