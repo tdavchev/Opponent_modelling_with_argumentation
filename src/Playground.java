@@ -69,9 +69,9 @@ public class Playground {
 				legalmoves = findLegalmoves(opp, move, pi);
 				if(legalmoves != null){
 					Map<Argument, Double> moveWithUtil = new HashMap<Argument, Double>();
-//					moveWithUtil = minimax(pi, 15, opp, null, legalmoves, -99999, 99999);
+					moveWithUtil = minimax(pi, 35, opp, null, legalmoves, -99999, 99999);
 //					moveWithUtil = uMStar(pi, 35, opp, null, legalmoves);
-					moveWithUtil = mStar(pi, 15, opp, null, legalmoves);
+//					moveWithUtil = mStar(pi, 35, opp, null, legalmoves);
 					if(!moveWithUtil.isEmpty()){
 						for(Argument arg:moveWithUtil.keySet()){
 //							System.out.println(arg.name);
@@ -93,9 +93,9 @@ public class Playground {
 				legalmoves = findLegalmoves(pro, move, pi);
 				Map<Argument, Double> moveWithUtil = new HashMap<Argument, Double>();
 				if(legalmoves != null){
-//					moveWithUtil = minimax(pi, 15, pro, null, legalmoves, -99999, 99999);
+					moveWithUtil = minimax(pi, 35, pro, null, legalmoves, -99999, 99999);
 //					moveWithUtil = uMStar(pi, 35, pro, null, legalmoves);
-					moveWithUtil = mStar(pi, 15, pro, null, legalmoves);
+//					moveWithUtil = mStar(pi, 35, pro, null, legalmoves);
 					for(Argument arg:moveWithUtil.keySet()){
 //						System.out.println(arg.name);
 						move = arg;
@@ -171,7 +171,7 @@ public class Playground {
 						if(score > alpha) {
 							alpha = score;
 							bestMove = tempDialogue.get(tempDialogue.size()-1);
-							System.err.println(bestMove.name);
+//							System.err.println(bestMove.name);
 						}
 						tempDialogue.remove(move);
 						if(alpha>=beta) break;
