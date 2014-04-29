@@ -17,7 +17,7 @@ public class Playground {
 		ArrayList<Argument> argumentList = new ArrayList<Argument>();
 		String winner;
 		argumentList.add(as.argumentList.get(0));
-		for(int i =2; i<5; ++i){
+		for(int i =0; i<5; ++i){
 			argumentList.add(as.argumentList.get(i));
 		}
 		for(int i =5; i<as.argumentList.size(); ++i){
@@ -72,13 +72,13 @@ public class Playground {
 //					moveWithUtil = mStar(pi, 35, opp, null, legalmoves);
 					if(!moveWithUtil.isEmpty()){
 						for(Argument arg:moveWithUtil.keySet()){
-//							System.out.println(arg.name);
 							move = arg;
 						}
-						if((move != pi.get(pi.size()-1))&&move!=null){
-//							loser = winner;
-//							winner = opp;
-							System.out.println("I am here");
+						if((move != pi.get(pi.size()-1))
+								&& move!=null 
+								&& pi.size()>1){
+							loser = winner;
+							winner = opp;
 						}
 					}
 					else if(moveWithUtil.isEmpty() 
