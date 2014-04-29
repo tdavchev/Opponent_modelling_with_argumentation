@@ -78,11 +78,13 @@ public class Playground {
 							move = arg;
 						}
 						if((move != pi.get(pi.size()-1))&&move!=null){
-							loser = winner;
-							winner = opp;
+//							loser = winner;
+//							winner = opp;
+							System.out.println("I am here");
 						}
 					}
-					else if(moveWithUtil.isEmpty() && move == null){
+					else if(moveWithUtil.isEmpty() 
+							&& move == null){
 						winner = pro;
 						loser = opp;
 					}

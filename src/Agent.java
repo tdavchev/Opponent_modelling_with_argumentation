@@ -23,8 +23,6 @@ class Agent {
 			model.kb.includeArgument(arg);
 			model.attackRelation.clear();
 			model.attackRelation = Host.populateAttacks(model.kb.arguments);
-//			collectUnattacked();
-//			label();
 		}
 		attackRelation.clear();
 		attackRelation = Host.populateAttacks(kb.arguments);
