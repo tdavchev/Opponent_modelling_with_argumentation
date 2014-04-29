@@ -122,7 +122,7 @@ public class ArgumentationSystem {
 		ac.attacks(p); ad.attacks(q); ag.attacks(s); ah.attacks(u); ai.attacks(w); aj.attacks(ab); ak.attacks(z);
 		al.attacks(x); am.attacks(y); an.attacks(al); ao.attacks(am); am.attacks(ao); ap.attacks(ao); ap.attacks(ag); ap.attacks(an);
 		aq.attacks(t); ar.attacks(ao); ar.attacks(aq); as.attacks(ar); as.attacks(at); at.attacks(ap); au.attacks(am); am.attacks(au);
-		av.attacks(y); aw.attacks(q); q.attacks(aw); q.attacks(av);
+		av.attacks(y); aw.attacks(q); q.attacks(aw); q.attacks(av); q.attacks(l);
 		System.out.println("Argumentation System size: " + argumentList.size());
 	}
 	
