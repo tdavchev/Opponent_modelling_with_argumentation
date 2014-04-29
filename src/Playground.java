@@ -348,9 +348,9 @@ public class Playground {
 		int counter=1;
 		double opponentMoves=0.0; 
 		if((pi.size()&1)!=0)
-			v = -1;
+			v = -1.0;
 		else
-			v = 1;
+			v = 1.0;
 		for(Argument argument: dialogue){
 			if((counter&1) == 0){
 				opponentMoves = opponentMoves + 1.0;
@@ -358,7 +358,7 @@ public class Playground {
 			if(dialogue.size()>1 
 					&& counter > 1){
 				if(dialogue.get(counter-2).equals(argument)){
-					score+=0.5;
+					score+=v/2.0;
 				}
 			}
 			else{
