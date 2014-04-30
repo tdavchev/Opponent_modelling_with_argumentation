@@ -12,53 +12,76 @@ public class Playground {
 	int oMoves = 0;
 	private Map<String, ArrayList<Argument>> personalDecisions = new HashMap<String, ArrayList<Argument>>();
 	ArgumentationSystem as = new ArgumentationSystem();
+	Random rand = new Random();
 	int counter = 0; //checks to see if its planner's or opponent's turn
 	
 	public Playground(){
 		ArrayList<Argument> argumentList = new ArrayList<Argument>();
 		String winner;
-		argumentList.add(as.argumentList.get(0));
-		for(int i =0; i<5; ++i){
-			argumentList.add(as.argumentList.get(i));
-		}
-		for(int i =5; i<as.argumentList.size(); ++i){
+//		argumentList.add(as.argumentList.get(0));
+//		for(int i =0; i<4; ++i){
+//			argumentList.add(getRandomArgument(as.argumentList, argumentList));
+//		} 
+		for(int i =0; i<as.argumentList.size(); ++i){
 			argumentList.add(as.argumentList.get(i));
 		}
 		KnowledgeBase kb = new KnowledgeBase(argumentList);
 		pro = new Agent(kb, "proponent");
-		undec = new Agent(kb, "undecided");
+		undec = new Agent(null, "undecided");
 		ArrayList<Argument> argumentList2 = new ArrayList<Argument>();
-		for(int i =0; i<20; ++i){
-			argumentList2.add(as.argumentList.get(i));
+//		int newrand = rand.nextInt(argumentList.size());
+//		while(newrand<1){newrand = rand.nextInt(argumentList.size());}
+//		for(int i =0; i< argumentList.size(); ++i){
+		for(int i=0; i<20; ++i){
+//		for(int i =0; i< newrand; ++i){
+//			argumentList2.add(getRandomArgument(argumentList, argumentList2));
+			argumentList2.add(argumentList.get(i));
 		}
 		KnowledgeBase kbOpp1 = new KnowledgeBase(argumentList2);
 		prosModelA = new Agent(kbOpp1, "modelA");
+//		newrand = rand.nextInt(argumentList.size());
+//		while(newrand<3){newrand = rand.nextInt(argumentList.size());}
 		ArrayList<Argument> argumentList3 = new ArrayList<Argument>();
-		for(int i =3; i<as.argumentList.size(); ++i){
-			argumentList3.add(as.argumentList.get(i));
+//		for(int i=0; i<newrand; ++i){
+		for(int i=3; i<as.argumentList.size(); ++i){
+//			argumentList3.add(getRandomArgument(argumentList, argumentList3));
+			argumentList3.add(argumentList.get(i));
 		}
-		argumentList3.add(as.argumentList.get(0));
 		KnowledgeBase kbOpp2 = new KnowledgeBase(argumentList3);
 		prosModelB = new Agent(kbOpp2, "modelB");
 		pro.opponentModel(0.5, prosModelA); pro.opponentModel(0.5, prosModelB);
 		ArrayList<Argument> argumentList4 = new ArrayList<Argument>();
+//		for(int i =0; i<as.argumentList.size()-1; ++i){ //90%
 		for(int i =0; i<as.argumentList.size(); ++i){
-			argumentList4.add(as.argumentList.get(i));
+//			argumentList4.add(getRandomArgument(as.argumentList, argumentList4));
+			argumentList4.add(argumentList.get(i));
 		}
-		Host.sleep(100);
 		argumentList4.add(as.argumentList.get(0)); argumentList4.add(as.argumentList.get(1));
 		KnowledgeBase kbOpp = new KnowledgeBase(argumentList4);
 		opp = new Agent(kbOpp, "opponent");
 		oppsModelA = new Agent(kbOpp, "oppModelA");
-		opp.opponentModel(1.0, oppsModelA);Host.sleep(100);
-		System.out.println(pro.name + " says -> " + as.argumentList.get(0).name);
+		opp.opponentModel(1.0, oppsModelA);
 		winner = play(as.argumentList.get(0));
-		System.out.println("Winner is: " + winner);
+//		System.out.println("Winner is: " + winner);
+		if(winner.equals(pro.name)) Host.wins++;
+		else if(winner.equals(undec.name)) Host.undec++;
 	}
+	
+	private Argument getRandomArgument(ArrayList<Argument> from, ArrayList<Argument> to){
+		int randomNumber = rand.nextInt(from.size());
+		if(!to.isEmpty()){
+			while(to.contains(from.get(randomNumber))){
+				randomNumber = rand.nextInt(from.size());
+			}
+		}
+		return from.get(randomNumber);
+	}
+
 	
 	private String play(Argument move){
 		Agent winner = opp;
 		Agent loser = pro;
+		opp.update(move);
 		Host.initiateCollection(personalDecisions, pro.name, opp.name);
 		ArrayList<Argument> legalmoves = new ArrayList<>();
 		do{
