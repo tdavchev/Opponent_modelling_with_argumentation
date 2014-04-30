@@ -91,9 +91,9 @@ public class Playground {
 				legalmoves = findLegalmoves(opp, move, pi);
 				if(legalmoves != null){
 					Map<Argument, Double> moveWithUtil = new HashMap<Argument, Double>();
-					moveWithUtil = minimax(pi, 35, opp, null, legalmoves, -99999, 99999);
+//					moveWithUtil = minimax(pi, 475, opp, null, legalmoves, -99999, 99999);
 //					moveWithUtil = uMStar(pi, 35, opp, null, legalmoves);
-//					moveWithUtil = mStar(pi, 35, opp, null, legalmoves);
+					moveWithUtil = mStar(pi, 1075, opp, null, legalmoves);
 					if(!moveWithUtil.isEmpty()){
 						for(Argument arg:moveWithUtil.keySet()){
 							move = arg;
@@ -117,15 +117,15 @@ public class Playground {
 				legalmoves = findLegalmoves(pro, move, pi);
 				Map<Argument, Double> moveWithUtil = new HashMap<Argument, Double>();
 				if(legalmoves != null){
-					moveWithUtil = minimax(pi, 35, pro, null, legalmoves, -99999, 99999);
+//					moveWithUtil = minimax(pi, 475, pro, null, legalmoves, -99999, 99999);
 //					moveWithUtil = uMStar(pi, 35, pro, null, legalmoves);
-//					moveWithUtil = mStar(pi, 35, pro, null, legalmoves);
+					moveWithUtil = mStar(pi, 1075, pro, null, legalmoves);
 					for(Argument arg:moveWithUtil.keySet()){
 						move = arg; // if more than one appropriate argument pick any
 						break;
 					}
 					if((move != pi.get(pi.size()-1))
-							&&move!=null){
+							&& move!=null){
 						loser = winner;
 						winner = pro;
 					}
