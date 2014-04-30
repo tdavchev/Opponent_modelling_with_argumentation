@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 
 
 public class Playground {
@@ -109,8 +110,8 @@ public class Playground {
 			}
 			if(move != null){
 				loser.update(move);
-				System.out.println(winner.name + " says -> " + move.name);
-				Host.sleep(100);
+//				System.out.println(winner.name + " says -> " + move.name);
+//				Host.sleep(100);
 			}
 			if(pi.contains(move))
 				winner = undec;
@@ -290,7 +291,8 @@ public class Playground {
 		Map<Argument, Double> proMoveProUtil = new HashMap<Argument, Double>();
 		Argument maxMove = null; // move with maximised utility
 		ArrayList<Argument> tempDialogue = new ArrayList<Argument>(); //secures the dialogue + M and dialogue +M +M' from paper
-		if(legalMoves.isEmpty() ||depth == 0){
+		if(legalMoves.isEmpty() 
+				|| depth == 0){
 			playUtil = evaluationFunction(dialogue, agent, opponent);
 			maxMoveMaxUtil.put(null, playUtil);
 		}
@@ -344,7 +346,6 @@ public class Playground {
 	private double evaluationFunction(ArrayList<Argument> dialogue, Agent agent, Agent opponent){
 		double v = 0;
 		double score = 0;
-		double bla;
 		int counter=1;
 		double opponentMoves=0.0; 
 		if((pi.size()&1)!=0)

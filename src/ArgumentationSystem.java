@@ -17,7 +17,7 @@ public class ArgumentationSystem {
 		attackRelation = Host.populateAttacks(kb.arguments);
 		collectUnattacked();
 		label();
-		printLabelling();
+		//printLabelling();
 	}
 	
 	public void defineArguments(KnowledgeBase kb){
@@ -50,7 +50,7 @@ public class ArgumentationSystem {
 		Argument ab = new Argument("ab");
 		Argument ac = new Argument("ac");
 		Argument ad = new Argument("ad");
-		Argument ae = new Argument("ae");
+//		Argument ae = new Argument("ae");
 		Argument af = new Argument("af");
 		Argument ag = new Argument("ag");
 		Argument ah = new Argument("ah");
