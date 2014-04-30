@@ -337,6 +337,7 @@ public class Playground {
 							oppMove = key;
 							tempDialogue.add(oppMove);
 							proMoveProUtil = mStar(tempDialogue, depth-2, agent, agentOpp, legalMoves);
+							tempDialogue.remove(tempDialogue.get(tempDialogue.size()-1));
 							for(Argument keyTwo: proMoveProUtil.keySet()){
 								playUtil = proMoveProUtil.get(keyTwo);
 								if(playUtil>maxUtil){ //might return more than one answer
@@ -349,6 +350,7 @@ public class Playground {
 						}
 					}					
 				}
+				tempDialogue.remove(tempDialogue.size()-1);
 				if(playUtil>maxUtil){
 					maxMoveMaxUtil.clear();
 					maxUtil = playUtil;
