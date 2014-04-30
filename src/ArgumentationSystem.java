@@ -94,22 +94,22 @@ public class ArgumentationSystem {
 		argumentList.add(av); argumentList.add(aw);
 		argumentList.add(af);
 		// tree 1
-		b.attacks(a); 
-		c.attacks(b);
-		d.attacks(b); e.attacks(d);
-		c.attacks(d); d.attacks(c);
-		f.attacks(b); g.attacks(f); h.attacks(g);
+//		b.attacks(a); 
+//		c.attacks(b);
+//		d.attacks(b); e.attacks(d);
+//		c.attacks(d); d.attacks(c);
+//		f.attacks(b); g.attacks(f); h.attacks(g);
 		// end of tree 1
 		//tree 2
-//		b.attacks(a); c.attacks(b); d.attacks(c); e.attacks(c);
-//		f.attacks(d); g.attacks(d); h.attacks(d);
-//		i.attacks(f);
-//		j.attacks(a); k.attacks(j); l.attacks(j);
-//		m.attacks(a); n.attacks(m); 
-//		o.attacks(m); p.attacks(o); q.attacks(o);
+		b.attacks(a); c.attacks(b); d.attacks(c); e.attacks(c);
+		f.attacks(d); g.attacks(d); h.attacks(d);
+		i.attacks(f);
+		j.attacks(a); k.attacks(j); l.attacks(j);
+		m.attacks(a); n.attacks(m); 
+		o.attacks(m); p.attacks(o); q.attacks(o);
 //		//tree 3 cont'd 2
-//		r.attacks(q); s.attacks(q); t.attacks(r); u.attacks(r); v.attacks(r); w.attacks(t); x.attacks(t); y.attacks(x);
-//		z.attacks(u); ab.attacks(u); af.attacks(e);
+		r.attacks(q); s.attacks(q); t.attacks(r); u.attacks(r); v.attacks(r); w.attacks(t); x.attacks(t); y.attacks(x);
+		z.attacks(u); ab.attacks(u); af.attacks(e);
 		//tree 4
 //		ac.attacks(k); ad.attacks(l); ae.attacks(ad); af.attacks(e);
 		//tree 5
@@ -118,12 +118,18 @@ public class ArgumentationSystem {
 //		ak.attacks(aj); al.attacks(aj);
 //		am.attacks(aj); an.attacks(aj); ao.attacks(am); ap.attacks(am); aq.attacks(am);
 //		ar.attacks(ao); as.attacks(ao); at.attacks(ap); au.attacks(ap); av.attacks(aq); aw.attacks(as);
-		//tree 6
-//		ac.attacks(p); ad.attacks(q); ag.attacks(s); ah.attacks(u); ai.attacks(w); aj.attacks(ab); ak.attacks(z);
-//		al.attacks(x); am.attacks(y); an.attacks(al); ao.attacks(am); am.attacks(ao); ap.attacks(ao); ap.attacks(ag); ap.attacks(an);
-//		aq.attacks(t); ar.attacks(ao); ar.attacks(aq); as.attacks(ar); as.attacks(at); at.attacks(ap); au.attacks(am); am.attacks(au);
-//		av.attacks(y); aw.attacks(q); q.attacks(aw); q.attacks(av); q.attacks(l);
-		System.out.println("Argumentation System size: " + argumentList.size());
+		//tree 6 cont'd 2
+		ac.attacks(p); ad.attacks(q); ag.attacks(s); ah.attacks(u); ai.attacks(w); aj.attacks(ab); ak.attacks(z);
+		al.attacks(x); am.attacks(y); an.attacks(al); ao.attacks(am); am.attacks(ao); ap.attacks(ao); ap.attacks(ag); ap.attacks(an);
+		aq.attacks(t); ar.attacks(ao); ar.attacks(aq); as.attacks(ar); as.attacks(at); at.attacks(ap); au.attacks(am); am.attacks(au);
+		av.attacks(y); aw.attacks(q); q.attacks(aw); q.attacks(av); q.attacks(l);
+		//tree 7
+//		b.attacks(a); 
+//		c.attacks(b);
+//		d.attacks(b); e.attacks(d);
+//		c.attacks(d); d.attacks(c);
+//		f.attacks(b); g.attacks(f); h.attacks(g); j.attacks(c); i.attacks(j);
+		Host.argumentationSystemSize = argumentList.size();
 	}
 	
 	private void collectUnattacked(){
