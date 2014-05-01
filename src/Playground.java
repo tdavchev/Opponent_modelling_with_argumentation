@@ -91,9 +91,9 @@ public class Playground {
 				legalmoves = findLegalmoves(opp, move, pi);
 				if(legalmoves != null){
 					Map<Argument, Double> moveWithUtil = new HashMap<Argument, Double>();
-//					moveWithUtil = minimax(pi, 475, opp, null, legalmoves, -99999, 99999);
+					moveWithUtil = minimax(pi, 55, opp, null, legalmoves, -99999, 99999);
 //					moveWithUtil = uMStar(pi, 35, opp, null, legalmoves);
-					moveWithUtil = mStar(pi, 1075, opp, null, legalmoves);
+//					moveWithUtil = mStar(pi, 55, opp, null, legalmoves);
 					if(!moveWithUtil.isEmpty()){
 						for(Argument arg:moveWithUtil.keySet()){
 							move = arg;
@@ -117,9 +117,9 @@ public class Playground {
 				legalmoves = findLegalmoves(pro, move, pi);
 				Map<Argument, Double> moveWithUtil = new HashMap<Argument, Double>();
 				if(legalmoves != null){
-//					moveWithUtil = minimax(pi, 475, pro, null, legalmoves, -99999, 99999);
+					moveWithUtil = minimax(pi, 55, pro, null, legalmoves, -99999, 99999);
 //					moveWithUtil = uMStar(pi, 35, pro, null, legalmoves);
-					moveWithUtil = mStar(pi, 1075, pro, null, legalmoves);
+//					moveWithUtil = mStar(pi, 55, pro, null, legalmoves);
 					for(Argument arg:moveWithUtil.keySet()){
 						move = arg; // if more than one appropriate argument pick any
 						break;
@@ -174,6 +174,7 @@ public class Playground {
 			Agent opponent, ArrayList<Argument> legalMoves, double alpha, double beta){
 		double score = -9999;
 		Argument bestMove = null;
+//		System.out.println(player.name + " " + legalMoves.size());
 		Map<Argument, Double> maxMoveMaxUtil = new HashMap<Argument, Double>();
 //		System.err.println("Last played argument is: " + dialogue.get(dialogue.size()-1).name);
 		ArrayList<Argument> legalmoves = new ArrayList<>();
@@ -183,7 +184,7 @@ public class Playground {
 			maxMoveMaxUtil.put(null, score);
 		}
 		else{
-			System.out.print("");
+//			System.out.print("");
 //			for(int i=0; i < legalMoves.size();++i){System.out.println("legalmoves upon calling function is " + legalMoves.get(i).name); Host.sleep(100);}
 			Host.populateArrayList(tempDialogue, dialogue);
 			if(player==myself){
@@ -255,7 +256,7 @@ public class Playground {
 				else{
 					for(Agent agentOpp: agent.opp.keySet()){
 						ArrayList<Argument> legalmoves = findLegalmoves(agentOpp, move, tempDialogue);
-						for(int i =0; i< legalmoves.size();++i){if(legalmoves.get(i).name.equals("ab"))System.out.println("Success");}
+//						for(int i =0; i< legalmoves.size();++i){if(legalmoves.get(i).name.equals("ab"))System.out.println("Success");}
 						Map<Argument, Double> oppMoveOppUtil = new HashMap<Argument, Double>();
 						Argument oppMove = null;
 						oppMoveOppUtil = uMStar(tempDialogue, depth-1, agentOpp, agent, legalmoves);
@@ -308,7 +309,7 @@ public class Playground {
 	 * @return
 	 */
 	private Map<Argument, Double> mStar(ArrayList<Argument> dialogue, int depth, Agent agent, Agent opponent, ArrayList<Argument> legalMoves){
-		double playUtil = 0; // player on turn's utility
+		double playUtil=-9999; // player on turn's utility
 		Map<Argument, Double> maxMoveMaxUtil = new HashMap<Argument, Double>();
 		Map<Argument, Double> oppMoveOppUtil = new HashMap<Argument, Double>();
 		Map<Argument, Double> proMoveProUtil = new HashMap<Argument, Double>();
@@ -361,6 +362,7 @@ public class Playground {
 		}
 		return maxMoveMaxUtil;
 	}
+
 	
 	/**
 	 * Collects utility see Oren+Thimm
