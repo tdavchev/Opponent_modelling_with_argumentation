@@ -31,8 +31,8 @@ public class Playground {
 		ArrayList<Argument> argumentList2 = new ArrayList<Argument>();
 //		int newrand = rand.nextInt(argumentList.size());
 //		while(newrand<1){newrand = rand.nextInt(argumentList.size());}
-//		for(int i =0; i< argumentList.size(); ++i){
-		for(int i=0; i<20; ++i){
+		for(int i =0; i< argumentList.size(); ++i){
+//		for(int i=0; i<20; ++i){
 //		for(int i =0; i< newrand; ++i){
 //			argumentList2.add(getRandomArgument(argumentList, argumentList2));
 			argumentList2.add(argumentList.get(i));
@@ -43,7 +43,7 @@ public class Playground {
 //		while(newrand<3){newrand = rand.nextInt(argumentList.size());}
 		ArrayList<Argument> argumentList3 = new ArrayList<Argument>();
 //		for(int i=0; i<newrand; ++i){
-		for(int i=3; i<as.argumentList.size(); ++i){
+		for(int i=0; i<as.argumentList.size(); ++i){
 //			argumentList3.add(getRandomArgument(argumentList, argumentList3));
 			argumentList3.add(argumentList.get(i));
 		}
