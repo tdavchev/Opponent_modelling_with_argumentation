@@ -379,23 +379,20 @@ public class Playground {
 	 * @return utility
 	 */
 	private double evaluationFunction(ArrayList<Argument> dialogue, Agent agent, Agent opponent){
-		double v = 0;
+		double v = ((pi.size()&1)!=0) ? -1.0 : 1.0;
 		double score = 0;
 		int counter=1;
 		double opponentMoves=0.0; 
-		if((pi.size()&1)!=0)
-			v = -1.0;
-		else
-			v = 1.0;
 		for(Argument argument: dialogue){
-			if((counter&1) == 0){
-				opponentMoves = opponentMoves + 1.0;
-			}
-			if(dialogue.size()>1 
+			opponentMoves += ((counter&1) == 0) ? 1.0 : 0.0; 
+			if(dialogue.size() > 1 
 					&& counter > 1){
-				if(dialogue.get(counter-2).equals(argument)){
-					score+=v/2.0;
-				}
+				score += 
+						(counter>3)?
+								((!dialogue.get(counter-4).equals(argument)
+										&& dialogue.get(counter-2).equals(argument)) ? v/2.0 : 0) 
+												: (dialogue.get(counter-2).equals(argument) ? v/2.0 : 0);	
+
 			}
 			else{
 				if(as.labelling.get("IN").contains(argument))
