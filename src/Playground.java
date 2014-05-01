@@ -161,9 +161,17 @@ public class Playground {
 					legalmoves.add(arg);
 				}
 				else if(listOfAlreadySaidArguments.size()>1){
-					if(listOfAlreadySaidArguments.get(listOfAlreadySaidArguments.size()-2).equals(arg)){ // support the option for indecisiveness
-						legalmoves.add(arg);
+					if(listOfAlreadySaidArguments.size()>3){
+						if(listOfAlreadySaidArguments.get(listOfAlreadySaidArguments.size()-2).equals(arg) 
+								&& !listOfAlreadySaidArguments.get(listOfAlreadySaidArguments.size()-4).equals(arg)){
+							legalmoves.add(arg);
+						}
 					}
+					else if(listOfAlreadySaidArguments.size()<3){
+						if(listOfAlreadySaidArguments.get(listOfAlreadySaidArguments.size()-2).equals(arg)){ // support the option for indecisiveness
+							legalmoves.add(arg);
+						}
+					}					
 				}
 			}
 		}
